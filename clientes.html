@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">TU FINCA YA!</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./fincas.html">Fincas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./clientes.html">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./mensajes.html">Mensajes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="contenedor">
+        <div id="form_cliente" class="contendor_form">
+            
+                    <label for="id" class="form-label">ID</label>
+                    <input type="number" class="form-control" id="id">
+                
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name">
+               
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email">
+                
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" class="form-control" id="edad">
+                    <br>
+            <div>
+                <button onclick="crearCliente()" class="btn btn-primary"> Crear Cliente</button>
+                <button class="btn btn-info" onclick="listarCliente()">Listar Clientes</button>
+                <button onclick="editarCliente()" class="btn btn-secondary">Editar Cliente</button>
+            </div>
+            <br>
+            <div id="detail_cliente">
+                
+            </div>
+                
+            </form>
+            
+        </div>
+        <div id="list_cliente" class="contenedor_list">
+        </div>
+        
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/customerAction.js"></script>
+</body>
+
+</html>
