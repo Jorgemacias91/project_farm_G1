@@ -23,13 +23,13 @@ public class Farm implements Serializable {
 
     private String name;
     private String address;
-    private String extension;
+    private Integer extension;//INTEGER
     private String description;
     
 
     @ManyToOne
     @JoinColumn(name = "idfarm")
-    @JsonIgnoreProperties("farm")
+    @JsonIgnoreProperties("farms")
     private Categoria category;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "farm")
@@ -65,11 +65,11 @@ public class Farm implements Serializable {
         this.address = address;
     }
 
-    public String getExtension() {
+    public Integer getExtension() {
         return extension;
     }
 
-    public void setExtension(String extension) {
+    public void setExtension(Integer extension) {
         this.extension = extension;
     }
 
