@@ -1,12 +1,12 @@
 function listarFinca() {
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/farm/farm",
+        url: "http://localhost:8080/api/Farm/all",
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
             console.log(respuesta);
             $("#list_finca").empty();
-            pintarRespuesta(respuesta.items);
+            pintarRespuesta(respuesta);
         }
     })
 }
@@ -16,21 +16,21 @@ function pintarRespuesta(items) {
     let myTable = "<table>";
     if (items.length > 0) {
         myTable += "<tr>";
-        myTable += "<th>" + "ID" + "</th>";
         myTable += "<th>" + "DIRECCIÓN" + "</td>";
-        myTable += "<th>" + "EXTENSIÓN" + "</td>";
         myTable += "<th>" + "CATEGORIA" + "</td>";
+        myTable += "<th>" + "EXTENSIÓN" + "</td>";
         myTable += "<th>" + "NOMBRE" + "</td>";
+        myTable += "<th>" + "DESCRIPCIÓN" + "</td>";
         myTable += "</tr>"
     }
 
     for (i = 0; i < items.length; i++) {
         myTable += "<tr>";
-        myTable += "<td>" + items[i].id + "</td>";
         myTable += "<td>" + items[i].address + "</td>";
-        myTable += "<td>" + items[i].exension + "</td>";
-        myTable += "<td>" + items[i].category_id + "</td>";
+        myTable += "<td>" + items[i].category.name + "</td>";
+        myTable += "<td>" + items[i].extension + "</td>";
         myTable += "<td>" + items[i].name + "</td>";
+        myTable += "<td>" + items[i].description + "</td>";
         myTable += "<td> <button onclick='eliminarFinca(" + items[i].id + ")'>Borrar</button>";
         myTable += "<td> <button onclick='detalleFinca(" + items[i].id + ")'>Ver</button>";
         myTable += "</tr>"
@@ -43,20 +43,21 @@ function crearFinca() {
     let myData = {
         id: $("#id").val(),
         address: $("#address").val(),
-        exension: $("#exension").val(),
-        category_id: $("#categoria_id").val(),
+        extension: $("#extension").val(),
+        category: {id : $("#categoria_id").val()},
         name: $("#name").val(),
+        description: $("#description").val()
     };
     let dataToSend = JSON.stringify(myData);
-    console.log(dataToSend)
+    console.log("datoToSend", dataToSend)
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/farm/farm",
+        url: "http://localhost:8080/api/Farm/save",
         type: "POST",
         data: dataToSend,
         contentType: "application/JSON",
         //dataType:'json',
         success: function (respuesta) {
-            console.log(respuesta);
+            console.log("response function", respuesta);
             $("#id").val("");
             $("#address").val("");
             $("#exension").val("");
@@ -74,14 +75,9 @@ function crearFinca() {
 }
 
 function eliminarFinca(idElement) {
-    let myData = {
-        id: idElement
-    };
-    let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/farm/farm",
+        url: `http://localhost:8080/api/Farm/${idElement}`,
         type: "DELETE",
-        data: dataToSend,
         contentType: "application/JSON",
         datatype: "JSON",
         success: function (respuesta) {
@@ -101,7 +97,7 @@ function editarFinca() {
     }
     let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/farm/farm",
+        url: "http://localhost:8080/api/Farm/update",
         type: "PUT",
         data: dataToSend,
         contentType: "application/JSON",
@@ -120,28 +116,28 @@ function editarFinca() {
 
 function detalleFinca(id) {
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/farm/farm/" + id,
+        url: `http://localhost:8080/api/Farm/${id}`,
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
             console.log("respuesta",respuesta)
             $("#detail_finca").empty();
-            pintarDetail(respuesta.items);
-            console.log('respuesta',respuesta.items)
+            pintarDetail(respuesta);
+            console.log('respuesta',respuesta)
         }
     });
 }
 
 function pintarDetail(items) {
     console.log('entre al a pintar detalle')
-    console.log("items id", items[0].id)
+    console.log("items id", items.id)
 
            detalle =  "<h4>DETALLES</h4>";
-           detalle += "<p> Id: " + items[0].id + "</p>";
-           detalle += "<p>Dirección: " + items[0].address + "</p>";
-           detalle += "<p>Extensión: " + items[0].exension + "</p>";
-           detalle += "<p>Categoría: " + items[0].category_id + "</p>";
-           detalle += "<p>Nombre: " + items[0].name + "</p>";
+           detalle += "<p> Id: " + items.id + "</p>";
+           detalle += "<p>Dirección: " + items.address + "</p>";
+           detalle += "<p>Extensión: " + items.extension + "</p>";
+           detalle += "<p>Categoría: " + items.category.name + "</p>";
+           detalle += "<p>Nombre: " + items.name + "</p>";
         
     console.log('mytable', detalle)
     $("#detail_finca").append(detalle);

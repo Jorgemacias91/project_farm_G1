@@ -1,12 +1,12 @@
 function listarCliente() {
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
+        url: "http://localhost:8080/api/Client/all",
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
             console.log(respuesta);
             $("#list_cliente").empty();
-            pintarRespuesta(respuesta.items);
+            pintarRespuesta(respuesta);
         }
     })
 }
@@ -17,8 +17,9 @@ function pintarRespuesta(items) {
     if (items.length > 0) {
         myTable += "<tr>";
         myTable += "<th>" + "ID" + "</th>";
-        myTable += "<th>" + "NOMBRE" + "</td>";
         myTable += "<th>" + "EMAIL" + "</td>";
+        myTable += "<th>" + "PASSWORD" + "</td>";
+        myTable += "<th>" + "NOMBRE" + "</td>";
         myTable += "<th>" + "EDAD" + "</td>";
         myTable += "</tr>"
     }
@@ -26,12 +27,13 @@ function pintarRespuesta(items) {
    
     for (i = 0; i < items.length; i++) {
         myTable += "<tr>";
-        myTable += "<td>" + items[i].id + "</td>";
-        myTable += "<td>" + items[i].name + "</td>";
+        myTable += "<td>" + items[i].idClient + "</td>";
         myTable += "<td>" + items[i].email + "</td>";
+        myTable += "<td>" + items[i].password + "</td>";
+        myTable += "<td>" + items[i].name + "</td>";
         myTable += "<td>" + items[i].age + "</td>";
-        myTable+="<td> <button onclick='eliminarCliente("+items[i].id+")'>Borrar</button>";
-        myTable += "<td> <button onclick='detalleCliente(" + items[i].id + ")'>Ver</button>";
+        myTable+="<td> <button onclick='eliminarCliente("+items[i].idClient+")'>Borrar</button>";
+        myTable += "<td> <button onclick='detalleCliente(" + items[i].idClient + ")'>Ver</button>";
         myTable += "</tr>"
     }
     myTable += "</table>"
@@ -41,14 +43,15 @@ function pintarRespuesta(items) {
 function crearCliente(){
     let myData= {
         id:$("#id").val(),
-        name: $("#name").val(),
         email: $("#email").val(),
+        password: $("#password").val(),
+        name: $("#name").val(),
         age: $("#edad").val(),
     };
     let dataToSend = JSON.stringify(myData);        
     console.log(dataToSend)
     $.ajax({
-        url:"https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
+        url:"http://localhost:8080/api/Client/save",
         type:"POST",
         data: dataToSend,
         contentType:"application/JSON",
@@ -57,6 +60,7 @@ function crearCliente(){
             console.log(respuesta);
             $("#name").val("");
             $("#email").val("");
+            $("#password").val("");
             $("#edad").val("");
             $("#list_cliente").empty();
             listarCliente();
@@ -70,14 +74,9 @@ function crearCliente(){
 }
 
 function eliminarCliente(idElement){
-    let myData ={
-        id: idElement
-    };
-    let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
+        url: `http://localhost:8080/api/Client/${idElement}`,
         type: "DELETE",
-        data: dataToSend,
         contentType: "application/JSON",
         datatype: "JSON",
         success: function(respuesta){
@@ -96,7 +95,7 @@ function editarCliente(){
     }
     let dataToSend=JSON.stringify(myData);
     $.ajax({
-        url:"https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client",
+        url: `http://localhost:8080/api/Client/uptade`,
         type:"PUT",
         data:dataToSend,
         contentType:"application/JSON",
@@ -114,27 +113,26 @@ function editarCliente(){
 
 function detalleCliente(id) {
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client/" + id,
+        url: `http://localhost:8080/api/Client/${id}`,
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
-            console.log("respuesta",respuesta)
+            console.log('respuesta1',respuesta)
             $("#detail_cliente").empty();
-            pintarDetail(respuesta.items);
-            console.log('respuesta',respuesta.items)
+            pintarDetail(respuesta);
+            console.log('respuesta',respuesta)
         }
     });
 }
 
 function pintarDetail(items) {
-    console.log('entre al a pintar detalle')
-    console.log("items id", items[0].id)
 
            detalle =  "<h4>DETALLES</h4>";
-           detalle += "<p> Id: " + items[0].id + "</p>";
-           detalle += "<p>Nombre: " + items[0].name + "</p>";
-           detalle += "<p>Email: " + items[0].email + "</p>";
-           detalle += "<p>Edad: " + items[0].age + "</p>";
+           detalle += "<p> Id: " + items.idClient + "</p>";
+           detalle += "<p>Email: " + items.email + "</p>";
+           detalle += "<p>Password: " + items.password + "</p>";
+           detalle += "<p>Nombre: " + items.name + "</p>";
+           detalle += "<p>Edad: " + items.age + "</p>";
         
     console.log('mytable', detalle)
     $("#detail_cliente").append(detalle);
