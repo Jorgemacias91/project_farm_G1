@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensajes</title>
+    <title>Categoria</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
@@ -46,31 +46,39 @@
     </nav>
 
     <div class="contenedor">
-        <div id="form_mensaje" class="contendor_form">
+        <div id="form_categoria" class="contendor_form">
+            
+                    <label for="id" class="form-label">ID</label>
+                    <input type="number" class="form-control" id="id">
 
-            <label for="id" class="form-label">ID</label>
-            <input type="number" class="form-control" id="id">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name">
 
-            <label for="mensaje" class="form-label">Mensaje</label>
-            <input type="text" class="form-control" id="mensaje">
-            <br>
+                    <label for="description" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="description">
+                
+                    <br>
             <div>
-                <button onclick="crearMensaje()" class="btn btn-primary">Crear Mensaje</button>
-                <button onclick="listarMensaje()" class="btn btn-info">Listar Mensaje</button>
-                <button onclick="editarMensaje()" class="btn btn-secondary">Editar Mensaje</button>
+                <button onclick="crearCategoria()" class="btn btn-primary"> Crear Categoria</button>
+                <button class="btn btn-info" onclick="listarCategoria()">Listar Categoria</button>
+                <button onclick="editarCategoria()" class="btn btn-secondary">Editar Categoria</button>
             </div>
             <br>
-            <div id="detail_mensaje">
-
+            <div id="detail_categoria">
+                
             </div>
+                
+            </form>
+            
         </div>
-        <div id="list_mensaje" class="contenedor_list">
+        <div id="list_categoria" class="contenedor_list">
         </div>
+        
     </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/messageAction.js"></script>
+    <script type="text/javascript" src="./js/categoryAction.js"></script>
 </body>
 
 </html>

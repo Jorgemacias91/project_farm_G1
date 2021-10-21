@@ -1,12 +1,12 @@
 function listarMensaje() {
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message",
+        url: "http://localhost:8080/api/Message/all",
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
             console.log(respuesta);
             $("#list_mensaje").empty();
-            pintarRespuesta(respuesta.items);
+            pintarRespuesta(respuesta);
         }
     })
 }
@@ -23,10 +23,10 @@ function pintarRespuesta(items) {
 
     for (i = 0; i < items.length; i++) {
         myTable += "<tr>";
-        myTable += "<td>" + items[i].id + "</td>";
-        myTable += "<td>" + items[i].messagetext + "</td>";
-        myTable += "<td> <button onclick='eliminarMensaje(" + items[i].id + ")'>Borrar</button>";
-        myTable += "<td> <button onclick='detalleMensaje(" + items[i].id + ")'>Ver</button>";
+        myTable += "<td>" + items[i].idMessage + "</td>";
+        myTable += "<td>" + items[i].messageText + "</td>";
+        myTable += "<td> <button onclick='eliminarMensaje(" + items[i].idMessage + ")'>Borrar</button>";
+        myTable += "<td> <button onclick='detalleMensaje(" + items[i].idMessage + ")'>Ver</button>";
         myTable += "</tr>"
     }
     myTable += "</table>"
@@ -35,12 +35,12 @@ function pintarRespuesta(items) {
 
 function crearMensaje() {
     let myData = {
-        id: $("#id").val(),
-        messagetext: $("#mensaje").val()
+        idMessage: $("#id").val(),
+        messageText: $("#mensaje").val()
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message",
+        url: "http://localhost:8080/api/Message/save",
         type: "POST",
         data: dataToSend,
         contentType: "application/JSON",
@@ -60,14 +60,9 @@ function crearMensaje() {
 }
 
 function eliminarMensaje(idElement) {
-    let myData = {
-        id: idElement
-    };
-    let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message",
+        url: `http://localhost:8080/api/Message/${idElement}`,
         type: "DELETE",
-        data: dataToSend,
         contentType: "application/JSON",
         datatype: "JSON",
         success: function (respuesta) {
@@ -79,13 +74,13 @@ function eliminarMensaje(idElement) {
 
 function editarMensaje() {
     let myData = {
-        id: $("#id").val(),
-        messagetext: $("#mensaje").val()
+        idMessage: $("#id").val(),
+        messageText: $("#mensaje").val()
     }
     let dataToSend = JSON.stringify(myData);
     console.log("myData", myData)
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message",
+        url: `http://localhost:8080/api/Message/update`,
         type: "PUT",
         data: dataToSend,
         contentType: "application/JSON",
@@ -100,25 +95,25 @@ function editarMensaje() {
 
 function detalleMensaje(id) {
     $.ajax({
-        url: "https://g6ec27d31f0870f-db202109251721.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/message/message/" + id,
+        url: `http://localhost:8080/api/Message/${id}`,
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
             console.log("respuesta",respuesta)
             $("#detail_mensaje").empty();
-            pintarDetail(respuesta.items);
-            console.log('respuesta',respuesta.items)
+            pintarDetail(respuesta);
+            console.log('respuesta',respuesta)
         }
     });
 }
 
 function pintarDetail(items) {
     console.log('entre al a pintar detalle')
-    console.log("items id", items[0].id)
+    console.log("items id", items.id)
 
            detalle =  "<h4>DETALLES</h4>";
-           detalle += "<p> Id: " + items[0].id + "</p>";
-           detalle += "<p>Mensaje: " + items[0].messagetext + "</p>";
+           detalle += "<p> Id: " + items.idMessage + "</p>";
+           detalle += "<p>Mensaje: " + items.messageText + "</p>";
         
     console.log('mytable', detalle)
     $("#detail_mensaje").append(detalle);
