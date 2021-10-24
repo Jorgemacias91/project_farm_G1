@@ -49,7 +49,7 @@
         <div id="form_mensaje" class="contendor_form">
 
             <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" onchange="getDetails(this)">
-                <option value="" selected>Selecciona el mensaje a modificar</option>
+                <option value="" selected>Selecciona el Id del mensaje a modificar</option>
             </select>
 
             <label for="mensaje" class="form-label">Mensaje</label>
@@ -65,18 +65,18 @@
                 <option selected>Selecciona la Finca</option>
             </select>
             <br>
-            <div>
-                <button onclick="crearMensaje()" class="btn btn-primary">Crear Mensaje</button>
-                <button onclick="listarMensaje()" class="btn btn-info">Listar Mensaje</button>
-                <button onclick="editarMensaje()" class="btn btn-secondary">Editar Mensaje</button>
-            </div>
-            <br>
-            <div id="detail_mensaje">
-
+            <div class="boton">
+                <button type="button" class="btn btn-outline-primary" onclick="crearMensaje()">Crear Mensaje</button>
+                <button type="button" class="btn btn-outline-primary" onclick="listarMensaje()">Listar Mensaje</button>
+                <button type="button" class="btn btn-outline-primary" onclick="editarMensaje()">Editar Mensaje</button>
             </div>
         </div>
         <div id="list_mensaje" class="contenedor_list">
         </div>
+    </div>
+
+    <div class="card text-center" id="detail_mensaje"> 
+        
     </div>
 
 

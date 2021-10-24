@@ -48,7 +48,8 @@
     <div class="contenedor">
         <div id="form_finca" class="contendor_form">
 
-            <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" onchange="getDetails(this)">
+            <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example"
+                onchange="getDetails(this)">
                 <option value="" selected>Selecciona la finca a modificar</option>
             </select>
 
@@ -57,31 +58,32 @@
 
             <label for="extension" class="form-label">Extención</label>
             <input type="number" class="form-control" id="extension">
-            <br>               
-            <select id="categoria_id" name="categoria" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+            <br>
+            <select id="categoria_id" name="categoria" class="form-select form-select-sm mb-3"
+                aria-label=".form-select-sm example">
                 <option selected>Selecciona la Categoría</option>
             </select>
-            
+
             <label for="name" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="name">
 
             <label for="description" class="form-label">Descripción</label>
             <input type="text" class="form-control" id="description">
             <br>
-            <div>
-                <button class="btn btn-primary" onclick="crearFinca()">Crear Finca</button>
-                <button class="btn btn-info" onclick="listarFinca()">Listar Finca</button>
-                <button class="btn btn-secondary" onclick="editarFinca()">Editar Finca</button>
-            </div>
-            <br>
-            <div id="detail_finca">
-
+            <div class="boton">
+                <button type="button" class="btn btn-outline-primary" onclick="crearFinca()">Crear Finca</button>
+                <button type="button" class="btn btn-outline-primary" onclick="listarFinca()">Listar Finca</button>
+                <button type="button" class="btn btn-outline-primary" onclick="editarFinca()">Editar Finca</button>
             </div>
         </div>
         <br>
         <div id="list_finca" class="contenedor_list">
 
         </div>
+    </div>
+
+    <div class="card text-center" id="detail_finca"> 
+        
     </div>
 
 

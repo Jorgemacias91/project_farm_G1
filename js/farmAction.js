@@ -11,29 +11,40 @@ function listarFinca() {
     })
 }
 
+
+
 function pintarRespuesta(items) {
 
-    let myTable = "<table>";
+    let myTable = "<table class='table'>";
     if (items.length > 0) {
+
+        myTable += "<thead>";
         myTable += "<tr>";
-        myTable += "<th>" + "DIRECCIÓN" + "</td>";
-        myTable += "<th>" + "CATEGORIA" + "</td>";
-        myTable += "<th>" + "EXTENSIÓN" + "</td>";
-        myTable += "<th>" + "NOMBRE" + "</td>";
-        myTable += "<th>" + "DESCRIPCIÓN" + "</td>";
+        myTable += "<th scope='col'>" + "ID" + "</td>";
+        myTable += "<th scope='col'>" + "DIRECCIÓN" + "</td>";
+        myTable += "<th scope='col'>" + "CATEGORIA" + "</td>";
+        myTable += "<th scope='col'>" + "EXTENSIÓN" + "</td>";
+        myTable += "<th scope='col'>" + "NOMBRE" + "</td>";
+        myTable += "<th scope='col'>" + "DESCRIPCIÓN" + "</td>";
+        myTable += "<th scope='col'>" + "BORRAR" + "</td>";
+        myTable += "<th scope='col'>" + "VER" + "</td>";
         myTable += "</tr>"
+        myTable += "</thead>"
     }
 
     for (i = 0; i < items.length; i++) {
+        myTable += "<tbody>";
         myTable += "<tr>";
+        myTable += "<th scope='row'>" + items[i].id + "</th>";
         myTable += "<td>" + items[i].address + "</td>";
         myTable += "<td>" + items[i].category.name + "</td>";
         myTable += "<td>" + items[i].extension + "</td>";
         myTable += "<td>" + items[i].name + "</td>";
         myTable += "<td>" + items[i].description + "</td>";
-        myTable += "<td> <button onclick='eliminarFinca(" + items[i].id + ")'>Borrar</button>";
-        myTable += "<td> <button onclick='detalleFinca(" + items[i].id + ")'>Ver</button>";
+        myTable += "<td> <button onclick='eliminarFinca(" + items[i].id + ")' type='button' class='btn btn-danger'>Borrar</button>";
+        myTable += "<td> <button onclick='detalleFinca(" + items[i].id + ")' type='button' class='btn btn-info'>Ver</button>";
         myTable += "</tr>"
+        myTable += "</tbody>"
     }
     myTable += "</table>"
     $("#list_finca").append(myTable);
@@ -60,9 +71,10 @@ function crearFinca() {
             console.log("response function", respuesta);
             $("#id").val("");
             $("#address").val("");
-            $("#exension").val("");
+            $("#extension").val("");
             $("#categoria_id").val("");
             $("#name").val("");
+            $("#description").val("");
             $("#list_finca").empty();
             listarFinca();
 
@@ -133,14 +145,14 @@ function detalleFinca(id) {
 function pintarDetail(items) {
     console.log('entre al a pintar detalle')
     console.log("items id", items.id)
-
-    detalle = "<h4>DETALLES</h4>";
-    detalle += "<p> Id: " + items.id + "</p>";
-    detalle += "<p>Dirección: " + items.address + "</p>";
-    detalle += "<p>Extensión: " + items.extension + "</p>";
-    detalle += "<p>Categoría: " + items.category.name + "</p>";
-    detalle += "<p>Nombre: " + items.name + "</p>";
-    detalle += "<p>Descripción: " + items.description + "</p>";
+    var detalle = "<div class='card-header'> Detalles </div>";
+    detalle += "<div class='card-body'>";
+    detalle += "<h5 class='card-title'>" + items.name + "</h5>";
+    detalle += "<p class='card-text'>Dirección: " + items.address + "</p>";
+    detalle += "<p class='card-text'>Extensión: " + items.extension + "</p>";
+    detalle += "<p class='card-text'>Categoría: " + items.category.name + "</p>";
+    detalle += "<p class='card-text'>Descripción: " + items.description + "</p>";
+    detalle += "</div>";
 
     console.log('mytable', detalle)
     $("#detail_finca").append(detalle);
@@ -153,18 +165,18 @@ function setData() {
         dataType: "JSON",
         success: function (respuesta) {
             console.log("respuesta", respuesta)
-           var select = document.getElementById("categoria_id");
+            var select = document.getElementById("categoria_id");
 
             for (var i = 0; i < respuesta.length; i++) {
-               var option = document.createElement("option");
+                var option = document.createElement("option");
                 option.value = respuesta[i].id
                 option.text = respuesta[i].name
                 console.log("option", option)
                 select.appendChild(option);
             }
-            
+
             console.log("select", select)
-            
+
         }
     });
 
@@ -173,18 +185,19 @@ function setData() {
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
+            pintarRespuesta(respuesta);
             console.log("respuesta", respuesta)
-           var select = document.getElementById("id");
+            var select = document.getElementById("id");
 
             for (var i = 0; i < respuesta.length; i++) {
-               var option = document.createElement("option");
+                var option = document.createElement("option");
                 option.value = respuesta[i].id
                 option.text = respuesta[i].name
                 console.log("option", option)
                 select.appendChild(option);
             }
             console.log("select", select)
-            
+
         }
     });
 }

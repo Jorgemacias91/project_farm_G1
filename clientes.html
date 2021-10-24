@@ -64,21 +64,17 @@
                     <label for="edad" class="form-label">Edad</label>
                     <input type="number" class="form-control" id="edad">
                     <br>
-            <div>
-                <button onclick="crearCliente()" class="btn btn-primary"> Crear Cliente</button>
-                <button class="btn btn-info" onclick="listarCliente()">Listar Clientes</button>
-                <button onclick="editarCliente()" class="btn btn-secondary">Editar Cliente</button>
-            </div>
-            <br>
-            <div id="detail_cliente">
-                
-            </div>
-                
-            </form>
-            
+            <div class="boton">
+                <button type="button" class="btn btn-outline-primary" onclick="crearCliente()"> Crear Cliente</button>
+                <button type="button" class="btn btn-outline-primary" onclick="listarCliente()">Listar Clientes</button>
+                <button type="button" class="btn btn-outline-primary" onclick="editarCliente()">Editar Cliente</button>
+            </div>  
         </div>
         <div id="list_cliente" class="contenedor_list">
         </div>
+    </div>
+
+    <div class="card text-center" id="detail_cliente"> 
         
     </div>
 

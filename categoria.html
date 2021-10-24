@@ -48,32 +48,35 @@
     <div class="contenedor">
         <div id="form_categoria" class="contendor_form">
 
-                    <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" onchange="getDetails(this)">
-                        <option value="" selected>Selecciona la categoria a modificar</option>
-                    </select>
+            <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example"
+                onchange="getDetails(this)">
+                <option value="" selected>Selecciona la categoria a modificar</option>
+            </select>
 
-                    <label for="name" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="name">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name">
 
-                    <label for="description" class="form-label">Descripción</label>
-                    <input type="text" class="form-control" id="description">
-                
-                    <br>
-            <div>
-                <button onclick="crearCategoria()" class="btn btn-primary"> Crear Categoria</button>
-                <button class="btn btn-info" onclick="listarCategoria()">Listar Categoria</button>
-                <button onclick="editarCategoria()" class="btn btn-secondary">Editar Categoria</button>
-            </div>
+            <label for="description" class="form-label">Descripción</label>
+            <input type="text" class="form-control" id="description">
+
             <br>
-            <div id="detail_categoria">
-                
+            <div class="boton">
+                <button type="button" class="btn btn-outline-primary" onclick="crearCategoria()"> Crear
+                    Categoria</button>
+                <button type="button" class="btn btn-outline-primary" onclick="listarCategoria()">Listar
+                    Categoria</button>
+                <button type="button" class="btn btn-outline-primary" onclick="editarCategoria()">Editar
+                    Categoria</button>
             </div>
-                
-            </form>
-            
+
         </div>
+        <br>
         <div id="list_categoria" class="contenedor_list">
         </div>
+
+    </div>
+
+    <div class="card text-center" id="detail_categoria"> 
         
     </div>
 

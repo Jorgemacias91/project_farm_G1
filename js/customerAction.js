@@ -13,28 +13,35 @@ function listarCliente() {
 
 function pintarRespuesta(items) {
 
-    let myTable = "<table>";
+    let myTable = "<table class='table'>";
     if (items.length > 0) {
+
+        myTable += "<thead>";
         myTable += "<tr>";
-        myTable += "<th>" + "ID" + "</th>";
-        myTable += "<th>" + "EMAIL" + "</td>";
-        myTable += "<th>" + "PASSWORD" + "</td>";
-        myTable += "<th>" + "NOMBRE" + "</td>";
-        myTable += "<th>" + "EDAD" + "</td>";
+        myTable += "<th scope='col'>" + "ID" + "</th>";
+        myTable += "<th scope='col'>" + "NOMBRE" + "</td>";
+        myTable += "<th scope='col'>" + "EDAD" + "</td>";
+        myTable += "<th scope='col'>" + "EMAIL" + "</td>";
+        myTable += "<th scope='col'>" + "PASSWORD" + "</td>";
+        myTable += "<th scope='col'>" + "BORRAR" + "</td>";
+        myTable += "<th scope='col'>" + "VER" + "</td>";
         myTable += "</tr>"
+        myTable += "</thead>"
     }
 
 
     for (i = 0; i < items.length; i++) {
+        myTable += "<tbody>";
         myTable += "<tr>";
-        myTable += "<td>" + items[i].idClient + "</td>";
-        myTable += "<td>" + items[i].email + "</td>";
-        myTable += "<td>" + items[i].password + "</td>";
+        myTable += "<th scope='row'>" + items[i].idClient + "</th>";
         myTable += "<td>" + items[i].name + "</td>";
         myTable += "<td>" + items[i].age + "</td>";
-        myTable += "<td> <button onclick='eliminarCliente(" + items[i].idClient + ")'>Borrar</button>";
-        myTable += "<td> <button onclick='detalleCliente(" + items[i].idClient + ")'>Ver</button>";
+        myTable += "<td>" + items[i].email + "</td>";
+        myTable += "<td>" + items[i].password + "</td>";
+        myTable += "<td> <button onclick='eliminarCliente(" + items[i].idClient + ")' type='button' class='btn btn-danger'>Borrar</button>";
+        myTable += "<td> <button onclick='detalleCliente(" + items[i].idClient + ")' type='button' class='btn btn-info'>Ver</button>";
         myTable += "</tr>"
+        myTable += "</tbody>"
     }
     myTable += "</table>"
     $("#list_cliente").append(myTable);
@@ -128,14 +135,13 @@ function detalleCliente(id) {
 }
 
 function pintarDetail(items) {
-
-    detalle = "<h4>DETALLES</h4>";
-    detalle += "<p> Id: " + items.idClient + "</p>";
-    detalle += "<p>Email: " + items.email + "</p>";
-    detalle += "<p>Password: " + items.password + "</p>";
-    detalle += "<p>Nombre: " + items.name + "</p>";
-    detalle += "<p>Edad: " + items.age + "</p>";
-
+    var detalle = "<div class='card-header'> Detalles </div>";
+    detalle += "<div class='card-body'>";
+    detalle += "<h5 class='card-title'>" + items.name + "</h5>";
+    detalle += "<p class='card-text'>Email: " + items.email + "</p>";
+    detalle += "<p class='card-text'>Password: " + items.password + "</p>";
+    detalle += "<p class='card-text'>Edad: " + items.age + "</p>";
+    detalle += "</div>";
     console.log('mytable', detalle)
     $("#detail_cliente").append(detalle);
 }
@@ -146,6 +152,7 @@ function setData() {
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
+            pintarRespuesta(respuesta);
             console.log("respuesta", respuesta)
             var select = document.getElementById("id");
 

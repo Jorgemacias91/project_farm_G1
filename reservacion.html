@@ -49,12 +49,12 @@
         <div id="form_reservacion" class="contendor_form">
 
             <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" onchange="getDetails(this)">
-                <option value="" selected>Selecciona la reserva a modificar</option>
+                <option value="" selected>Selecciona el Id de la reserva a modificar</option>
             </select>
 
             <label for="startdate" class="form-label">Fecha de Inicio</label>
             <input type="date" class="form-control" id="startdate">
-
+            <br>
             <label for="enddate" class="form-label">Fecha de Regreso</label>
             <input type="date" class="form-control" id="enddate">
 
@@ -70,22 +70,19 @@
                 <option selected>Selecciona la Finca</option>
             </select>
             <br>
-            <div>
-                <button onclick="crearReservacion()" class="btn btn-primary"> Crear Reserva</button>
-                <button class="btn btn-info" onclick="listarReservacion()">Listar Reserva</button>
-                <button onclick="editarReservacion()" class="btn btn-secondary">Editar Reserva</button>
+            <div class="boton">
+                <button type="button" class="btn btn-outline-primary" onclick="crearReservacion()"> Crear Reserva</button>
+                <button type="button" class="btn btn-outline-primary" onclick="listarReservacion()">Listar Reserva</button>
+                <button type="button" class="btn btn-outline-primary" onclick="editarReservacion()">Editar Reserva</button>
             </div>
-            <br>
-            <div id="detail_reservacion">
-
-            </div>
-
-            </form>
-
         </div>
         <div id="list_reservacion" class="contenedor_list">
         </div>
 
+    </div>
+
+    <div class="card text-center" id="detail_reservacion"> 
+        
     </div>
 
 
