@@ -36,7 +36,9 @@ function pintarRespuesta(items) {
 function crearMensaje() {
     let myData = {
         idMessage: $("#id").val(),
-        messageText: $("#mensaje").val()
+        messageText: $("#mensaje").val(),
+        client: { idClient: $("#client_id").val() },
+        farm: { id: $("#farm_id").val() },
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
@@ -49,6 +51,8 @@ function crearMensaje() {
             console.log(respuesta);
             $("#id").val("");
             $("#mensaje").val("");
+            $("#client_id").val("");
+            $("#farm_id").val("");
             $("#list_cliente").empty();
             listarMensaje();
 
@@ -99,10 +103,10 @@ function detalleMensaje(id) {
         type: "GET",
         dataType: "JSON",
         success: function (respuesta) {
-            console.log("respuesta",respuesta)
+            console.log("respuesta", respuesta)
             $("#detail_mensaje").empty();
             pintarDetail(respuesta);
-            console.log('respuesta',respuesta)
+            console.log('respuesta', respuesta)
         }
     });
 }
@@ -111,10 +115,89 @@ function pintarDetail(items) {
     console.log('entre al a pintar detalle')
     console.log("items id", items.id)
 
-           detalle =  "<h4>DETALLES</h4>";
-           detalle += "<p> Id: " + items.idMessage + "</p>";
-           detalle += "<p>Mensaje: " + items.messageText + "</p>";
-        
+    detalle = "<h4>DETALLES</h4>";
+    detalle += "<p> Id: " + items.idMessage + "</p>";
+    detalle += "<p>Mensaje: " + items.messageText + "</p>";
+
     console.log('mytable', detalle)
     $("#detail_mensaje").append(detalle);
+}
+
+function setData() {
+    $.ajax({
+        url: "http://localhost:8080/api/Farm/all",
+        type: "GET",
+        dataType: "JSON",
+        success: function (respuesta) {
+            console.log("respuesta", respuesta)
+            var select = document.getElementById("farm_id");
+
+            for (var i = 0; i < respuesta.length; i++) {
+                var option = document.createElement("option");
+                option.value = respuesta[i].id
+                option.text = respuesta[i].name
+                console.log("option", option)
+                select.appendChild(option);
+            }
+
+            console.log("select", select)
+
+        }
+    });
+
+    $.ajax({
+        url: "http://localhost:8080/api/Client/all",
+        type: "GET",
+        dataType: "JSON",
+        success: function (respuesta) {
+            console.log("respuesta", respuesta)
+            var select = document.getElementById("client_id");
+
+            for (var i = 0; i < respuesta.length; i++) {
+                var option = document.createElement("option");
+                option.value = respuesta[i].idClient
+                option.text = respuesta[i].name
+                console.log("option", option)
+                select.appendChild(option);
+            }
+
+            console.log("select", select)
+
+        }
+    })
+
+    $.ajax({
+        url: "http://localhost:8080/api/Message/all",
+        type: "GET",
+        dataType: "JSON",
+        success: function (respuesta) {
+            console.log("respuesta", respuesta)
+            var select = document.getElementById("id");
+
+            for (var i = 0; i < respuesta.length; i++) {
+                var option = document.createElement("option");
+                option.value = respuesta[i].idMessage
+                option.text = respuesta[i].messageText
+                console.log("option", option)
+                select.appendChild(option);
+            }
+
+            console.log("select", select)
+
+        }
+    });
+};
+
+function getDetails(id) {
+    $.ajax({
+        url: `http://localhost:8080/api/Message/${id.value}`,
+        type: "GET",
+        dataType: "JSON",
+        success: function (respuesta) {
+            console.log("detail", respuesta)
+            $("#mensaje").val(respuesta.messageText),
+            $("#client_id").val(respuesta.idClient),
+            $("#farm_id").val(respuesta.id);
+        }
+    });
 }

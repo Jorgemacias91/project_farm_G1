@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
 </head>
 
-<body>
+<body onload="setData()">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -48,18 +48,20 @@
     <div class="contenedor">
         <div id="form_finca" class="contendor_form">
 
-            <label for="id" class="form-label">ID</label>
-            <input type="number" class="form-control" id="id">
+            <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" onchange="getDetails(this)">
+                <option value="" selected>Selecciona la finca a modificar</option>
+            </select>
 
             <label for="address" class="form-label">Dirección</label>
             <input type="text" class="form-control" id="address">
 
             <label for="extension" class="form-label">Extención</label>
             <input type="number" class="form-control" id="extension">
-
-            <label for="categoria_id" class="form-label">Categoría</label>
-            <input type="text" class="form-control" id="categoria_id">
-
+            <br>               
+            <select id="categoria_id" name="categoria" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                <option selected>Selecciona la Categoría</option>
+            </select>
+            
             <label for="name" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="name">
 
@@ -73,7 +75,7 @@
             </div>
             <br>
             <div id="detail_finca">
-                
+
             </div>
         </div>
         <br>

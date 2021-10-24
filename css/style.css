@@ -5,13 +5,13 @@ justify-content: space-around;
 }
 
 div.contendor_form{
-    width: 35%;
+    width: 38%;
     padding: 3%;
 }
 
 div.contenedor_list{
     padding: 3%;
-    width: 65%;
+    width: 62%;
     display: flex;
     justify-content: center;
 }

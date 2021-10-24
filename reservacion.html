@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
 </head>
 
-<body>
+<body onload="setData()">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -47,17 +47,29 @@
 
     <div class="contenedor">
         <div id="form_reservacion" class="contendor_form">
-            
-                    <label for="id" class="form-label">ID</label>
-                    <input type="number" class="form-control" id="id">
 
-                    <label for="startdate" class="form-label">Fecha de Inicio</label>
-                    <input type="date" class="form-control" id="startdate">
+            <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" onchange="getDetails(this)">
+                <option value="" selected>Selecciona la reserva a modificar</option>
+            </select>
 
-                    <label for="enddate" class="form-label">Fecha de Regreso</label>
-                    <input type="date" class="form-control" id="enddate">
-                
-                    <br>
+            <label for="startdate" class="form-label">Fecha de Inicio</label>
+            <input type="date" class="form-control" id="startdate">
+
+            <label for="enddate" class="form-label">Fecha de Regreso</label>
+            <input type="date" class="form-control" id="enddate">
+
+            <br>
+            <select id="client_id" name="cliente" class="form-select form-select-sm mb-3"
+                aria-label=".form-select-sm example">
+                <option selected>Selecciona el Cliente</option>
+            </select>
+
+            <br>
+            <select id="farm_id" name="finca" class="form-select form-select-sm mb-3"
+                aria-label=".form-select-sm example">
+                <option selected>Selecciona la Finca</option>
+            </select>
+            <br>
             <div>
                 <button onclick="crearReservacion()" class="btn btn-primary"> Crear Reserva</button>
                 <button class="btn btn-info" onclick="listarReservacion()">Listar Reserva</button>
@@ -65,15 +77,15 @@
             </div>
             <br>
             <div id="detail_reservacion">
-                
+
             </div>
-                
+
             </form>
-            
+
         </div>
         <div id="list_reservacion" class="contenedor_list">
         </div>
-        
+
     </div>
 
 

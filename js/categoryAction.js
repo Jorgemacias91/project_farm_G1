@@ -81,11 +81,11 @@ function editarCategoria(){
     let myData = {
         id:$("#id").val(),
         name:$("#name").val(),
-        email:$("#description").val()
+        description:$("#description").val()
     }
     let dataToSend=JSON.stringify(myData);
     $.ajax({
-        url: `http://localhost:8080/api/Category/uptade`,
+        url: "http://localhost:8080/api/Category/update",
         type:"PUT",
         data:dataToSend,
         contentType:"application/JSON",
@@ -123,4 +123,40 @@ function pintarDetail(items) {
         
     console.log('mytable', detalle)
     $("#detail_categoria").append(detalle);
+}
+
+function setData() {
+
+    $.ajax({
+        url: "http://localhost:8080/api/Category/all",
+        type: "GET",
+        dataType: "JSON",
+        success: function (respuesta) {
+            console.log("respuesta", respuesta)
+           var select = document.getElementById("id");
+
+            for (var i = 0; i < respuesta.length; i++) {
+               var option = document.createElement("option");
+                option.value = respuesta[i].id
+                option.text = respuesta[i].name
+                console.log("option", option)
+                select.appendChild(option);
+            }
+            console.log("select", select)
+            
+        }
+    });
+}
+
+function getDetails(id) {
+    $.ajax({
+        url: `http://localhost:8080/api/Category/${id.value}`,
+        type: "GET",
+        dataType: "JSON",
+        success: function (respuesta) {
+            console.log("detail", respuesta)
+            $("#name").val(respuesta.name),
+            $("#description").val(respuesta.description)
+        }
+    });
 }

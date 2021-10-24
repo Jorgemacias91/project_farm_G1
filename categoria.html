@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
 </head>
 
-<body>
+<body onload="setData()">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -47,9 +47,10 @@
 
     <div class="contenedor">
         <div id="form_categoria" class="contendor_form">
-            
-                    <label for="id" class="form-label">ID</label>
-                    <input type="number" class="form-control" id="id">
+
+                    <select id="id" name="id" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" onchange="getDetails(this)">
+                        <option value="" selected>Selecciona la categoria a modificar</option>
+                    </select>
 
                     <label for="name" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="name">
