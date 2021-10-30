@@ -4,6 +4,10 @@
  */
 package RETO3.RETO3;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +74,31 @@ public class servicioReservacion {
         }).orElse(false);
         return aBoolean;
     }
-    
+
+    public StatusReservas getReporteStatusReservaciones(){
+        List<Reservacion>completed=metodosCrud.reservacionStatus("completed");
+        List<Reservacion>cancelled=metodosCrud.reservacionStatus("cancelled");
+        return new StatusReservas(completed.size(), cancelled.size());
+    }
+
+    public List<Reservacion> getReporteTiempoReservaciones(String dato1, String dato2){
+        SimpleDateFormat parser=new SimpleDateFormat ("yyyy-MM-dd");
+        Date datoUno = new Date();
+        Date datoDos = new Date();
+
+        try{
+            datoUno = parser.parse(dato1);
+            datoDos = parser.parse(dato2);
+        }catch(ParseException evt){
+            evt.printStackTrace();
+        }if(datoUno.before(datoDos)){
+            return metodosCrud.reservacionDate(datoUno, datoDos);
+        }else{
+            return new ArrayList<>();
+        }
+    }
+
+    public List<ContadorCliente> servicioTopClientes(){
+        return metodosCrud.getTopClientes();
+    }
 }
